@@ -372,16 +372,7 @@ def login(req: LoginRequest):
                 "email": "analyst@sepsisense.org"
             }
         }
-    elif req.username.lower() == "professor" and req.password == "demo":
-        return {
-            "status": "success",
-            "token": "professor_demo_token",
-            "user": {
-                "name": "Project Evaluator",
-                "role": "Professor / Reviewer",
-                "email": "evaluator@university.edu"
-            }
-        }
+    # Removed demo evaluator credentials
     else:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

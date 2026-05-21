@@ -124,6 +124,7 @@ export default function App() {
             </div>
             <div className="min-w-0">
               <div className="text-xs font-bold text-white truncate">{user.name}</div>
+              <div className="text-[10px] text-gray-500 truncate mt-0.5">Doctor</div>
 
             </div>
           </div>

@@ -7,20 +7,20 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 async function fetchJson(endpoint, options = {}) {
   const url = `${API_BASE_URL}${endpoint}`;
-  
+
   // Set JSON content-type and add auth token if present
   const headers = {
     'Content-Type': 'application/json',
     ...options.headers,
   };
-  
+
   const token = localStorage.getItem('sepsis_sense_token');
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
   const response = await fetch(url, { ...options, headers });
-  
+
   if (!response.ok) {
     let errorMessage = `API error: ${response.status} ${response.statusText}`;
     try {
@@ -31,7 +31,7 @@ async function fetchJson(endpoint, options = {}) {
     }
     throw new Error(errorMessage);
   }
-  
+
   return response.json();
 }
 
@@ -92,13 +92,13 @@ export const apiService = {
       page: page.toString(),
       limit: limit.toString(),
     });
-    
+
     if (ward) params.append('ward', ward);
     if (cohort) params.append('cohort', cohort);
     if (searchId !== null && searchId !== undefined && searchId !== '') {
       params.append('search_id', searchId.toString());
     }
-    
+
     return fetchJson(`/api/patients?${params.toString()}`);
   },
 

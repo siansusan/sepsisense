@@ -6,10 +6,11 @@ import PatientsTab from './components/PatientsTab';
 import GraphTab from './components/GraphTab';
 import PathwaysTab from './components/PathwaysTab';
 import SandboxTab from './components/SandboxTab';
+import IngestionTab from './components/IngestionTab';
 
 import { 
   Activity, Users, Network, Award, 
-  Sliders, LogOut, Radio, User, AlertTriangle 
+  Sliders, LogOut, Radio, User, AlertTriangle, Database
 } from 'lucide-react';
 
 export default function App() {
@@ -65,6 +66,7 @@ export default function App() {
 
   const tabs = [
     { id: 'overview', name: 'Dashboard Overview', icon: Activity },
+    { id: 'ingestion', name: 'Data Ingestion', icon: Database },
     { id: 'graph', name: 'Deterioration Highway', icon: Network },
     { id: 'pathways', name: 'Pathway Discoveries', icon: Award },
     { id: 'sandbox', name: 'Sandbox Simulation', icon: Sliders },
@@ -169,29 +171,31 @@ export default function App() {
                   {tabs.find(t => t.id === activeTab).name}
                 </h1>
                 <p className="text-xs text-gray-400 mt-1 font-light">
-                  {activeTab === 'overview' && 'Overview of patient cohorts, transitions graph stats and algorithm configuration.'}
-                  {activeTab === 'patients' && 'Registry of ICU/ER patients. Search and analyze individual vital graphs and progression matching.'}
-                  {activeTab === 'graph' && 'Interactive transition graph representing patient clinical progression lanes.'}
-                  {activeTab === 'pathways' && 'Ranked list of discovered sepsis progression patterns and multi-run stability results.'}
-                  {activeTab === 'sandbox' && 'Live simulation sandbox. Customize prior-bootstrapping and ant walk parameters to discover pathways.'}
-                </p>
-              </div>
-
-              {/* Server Live tag */}
-              <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950/20 border border-emerald-800/40 text-emerald-400 text-xs font-medium">
-                <Radio className="h-3.5 w-3.5 animate-pulse" />
-                <span>FastAPI: Active</span>
-              </div>
+                {activeTab === 'overview' && 'Overview of patient cohorts, transitions graph stats and algorithm configuration.'}
+                {activeTab === 'ingestion' && 'Import EHR datasets to extract structured clinical features and run stability analysis.'}
+                {activeTab === 'patients' && 'Registry of ICU/ER patients. Search and analyze individual vital graphs and progression matching.'}
+                {activeTab === 'graph' && 'Interactive transition graph representing patient clinical progression lanes.'}
+                {activeTab === 'pathways' && 'Ranked list of discovered sepsis progression patterns and multi-run stability results.'}
+                {activeTab === 'sandbox' && 'Live simulation sandbox. Customize prior-bootstrapping and ant walk parameters to discover pathways.'}
+              </p>
             </div>
 
-            {/* Tab Rendering */}
-            <div className="transition-opacity duration-300">
-              {activeTab === 'overview' && <OverviewTab data={overviewData} />}
-              {activeTab === 'patients' && <PatientsTab />}
-              {activeTab === 'graph' && <GraphTab />}
-              {activeTab === 'pathways' && <PathwaysTab data={overviewData} />}
-              {activeTab === 'sandbox' && <SandboxTab />}
+            {/* Server Live tag */}
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950/20 border border-emerald-800/40 text-emerald-400 text-xs font-medium">
+              <Radio className="h-3.5 w-3.5 animate-pulse" />
+              <span>FastAPI: Active</span>
             </div>
+          </div>
+
+          {/* Tab Rendering */}
+          <div className="transition-opacity duration-300">
+            {activeTab === 'overview' && <OverviewTab data={overviewData} />}
+            {activeTab === 'ingestion' && <IngestionTab />}
+            {activeTab === 'patients' && <PatientsTab />}
+            {activeTab === 'graph' && <GraphTab />}
+            {activeTab === 'pathways' && <PathwaysTab data={overviewData} />}
+            {activeTab === 'sandbox' && <SandboxTab />}
+          </div>
           </div>
         )}
       </main>

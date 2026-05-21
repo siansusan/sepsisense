@@ -1,0 +1,114 @@
+======================================================================
+MC2-ACO: Monte Carlo Prior-Initialized and Uncertainty-Adaptive
+Ant Colony Optimization for Sepsis Progression Pathway Discovery
+======================================================================
+Run date : 2026-05-08
+Exit code: 0  (pipeline completed successfully)
+
+----------------------------------------------------------------------
+DATASET
+----------------------------------------------------------------------
+Total rows     : 24,000  (1000 patients x 24 timepoints)
+Cohort sizes   : 660 non-sepsis | 200 Warm Sepsis | 80 Cryptic Sepsis | 60 Inflammatory Cascade
+Train / Val    : 700 patients (16,800 rows) / 300 patients (7,200 rows)
+
+----------------------------------------------------------------------
+GRAPH
+----------------------------------------------------------------------
+Nodes  : 246  (discrete clinical states)
+Edges  : 1,598  (observed transitions)
+Tau    : range [0.0103, 1.0000]  (MC-initialized pheromone)
+
+----------------------------------------------------------------------
+MAIN ACO RUN  (50 ants x 200 iterations)
+----------------------------------------------------------------------
+Unique paths discovered : 384
+
+Top 5 ranked paths (diversity-aware selection):
+
+  #1  score=0.6040  freq=0.0349  cov=0.0100  tau=1.2606  [Warm Sepsis]
+      START -> T1_H0_B0_W0_L0 -> T2_H0_B0_W0_L0 -> T2_H1_B0_W0_L0
+            -> T2_H2_B0_W0_L0 -> T2_H2_B0_W1_L0 -> T2_H2_B0_W1_L1 -> SEPSIS
+      Clinical: fever escalates T1->T2, tachycardia hits H2,
+                WBC rises to W1, lactate rises to L1.
+
+  #2  score=0.0602  freq=0.0000  cov=0.0000  tau=0.3792  [Inflammatory Cascade]
+      START -> T2_H0_B0_W1_L0 -> T2_H0_B0_W?_L0 -> T2_H0_B0_W2_L0
+            -> T2_H1_B0_W2_L0 -> ... (11 nodes) -> SEPSIS
+      Clinical: sustained high fever (T2), WBC rapidly reaching W2,
+                lactate rises under persistent inflammation.
+
+  #3  score=0.0168  freq=0.0000  cov=0.0000  tau=0.1057  [Cryptic Sepsis]
+      START -> T1_H0_B0_W0_L0 -> T?_H0_B0_W0_L0 -> T0_H0_B0_W0_L0
+            -> T0_H0_B?_W0_L0 -> ... (13 nodes) -> T0_H0_B2_W0_L2 -> SEPSIS
+      Clinical: normal temperature throughout (T0), BP silently
+                drops B0->B1->B2, lactate spikes to L2.
+
+  #4  score=0.2846  freq=0.0116  cov=0.0033  tau=0.9448  [Warm Sepsis]
+      START -> T1_H0_B0_W0_L0 -> T2_H0_B0_W0_L0 -> T2_H1_B0_W0_L0
+            -> T2_H2_B0_W0_L0 -> T2_H2_B0_W1_L0 -> T2_H2_B0_W1_L1
+            -> T2_H2_B1_W1_L1 -> SEPSIS
+
+  #5  score=0.1499  freq=0.0000  cov=0.0000  tau=0.9448  [Warm Sepsis]
+      START -> T1_H0_B0_W0_L0 -> T2_H0_B0_W0_L0 -> T2_H1_B0_W0_L0
+            -> T2_H2_B0_W0_L0 -> T2_H2_B0_W1_L0 -> T2_H2_B0_W1_L1
+            -> T2_H2_B?_W1_L1 -> SEPSIS
+
+----------------------------------------------------------------------
+STABILITY ANALYSIS  (500 independent random seeds)
+Reduced params per run: 20 ants x 30 iterations x 200 MC bootstraps
+----------------------------------------------------------------------
+
+  Pathway              Stability   Mean Score   95% CI
+  -------              ---------   ----------   -------
+  Warm Sepsis          100.0%      0.6028       (0.6008, 0.6049)
+  Cryptic Sepsis       100.0%      0.0057       (0.0049, 0.0066)
+  Inflammatory Cascade  79.8%      0.0213       (0.0171, 0.0256)
+
+All three pathway types exceed the 60% stability threshold.
+
+Best representative paths (most frequently elected across 500 runs):
+
+  [Warm Sepsis]
+  START -> T1_H0_B0_W0_L0 -> T2_H0_B0_W0_L0 -> T2_H1_B0_W0_L0
+        -> T2_H2_B0_W0_L0 -> T2_H2_B0_W1_L0 -> T2_H2_B0_W1_L1 -> SEPSIS
+
+  [Cryptic Sepsis]
+  START -> T1_H0_B0_W0_L0 -> T?_H0_B0_W0_L0 -> T0_H0_B0_W0_L0
+        -> T0_H?_B0_W0_L0 -> T0_H0_B0_W?_L0 -> T0_H0_B?_W0_L0
+        -> T0_H0_B0_W0_L? -> T0_H0_B1_W0_L0 -> T0_H0_B2_W0_L0
+        -> T0_H0_B2_W0_L1 -> T0_H0_B2_W0_L2 -> SEPSIS
+
+  [Inflammatory Cascade]
+  START -> T1_H0_B0_W0_L0 -> T2_H0_B0_W?_L0 -> T2_H0_B0_W2_L0
+        -> T2_H1_B0_W2_L? -> T2_H1_B0_W2_L1 -> SEPSIS
+
+----------------------------------------------------------------------
+VALIDATION vs GROUND-TRUTH Pathway_Type LABELS
+----------------------------------------------------------------------
+
+  Discovered Path 1: [MATCH]
+    Matched pathway : Warm Sepsis
+    Token overlap   : 100.0%
+    Stability       : 100.0%   CI95 = (0.6008, 0.6049)
+
+  Discovered Path 2: [MATCH]
+    Matched pathway : Cryptic Sepsis
+    Token overlap   : 100.0%
+    Stability       : 100.0%   CI95 = (0.0049, 0.0066)
+
+  Discovered Path 3: [MATCH]
+    Matched pathway : Inflammatory Cascade
+    Token overlap   : 100.0%
+    Stability       :  79.8%   CI95 = (0.0171, 0.0256)
+
+Recovery Summary:
+  Warm Sepsis             ->  RECOVERED
+  Cryptic Sepsis          ->  RECOVERED
+  Inflammatory Cascade    ->  RECOVERED
+
+  Overall recovery: 3/3 pathways
+
+======================================================================
+END OF RESULTS
+======================================================================

@@ -1,7 +1,7 @@
 """
 data_loader.py
 
-Loads the synthetic sepsis dataset and performs a 70/30 train/validation
+Loads the secondary sepsis dataset and performs a 70/30 train/validation
 split by Patient_ID to prevent data leakage across time series.
 """
 
@@ -10,7 +10,7 @@ import numpy as np
 
 
 def load_and_split(
-    csv_path: str = "mc2aco/synthetic_sepsis_data.csv",
+    csv_path: str = "mc2aco/secondary_sepsis_data.csv",
     train_frac: float = 0.70,
     seed: int = 42,
 ) -> tuple:

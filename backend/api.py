@@ -22,7 +22,7 @@ from fastapi.middleware.cors import CORSMiddleware
 # Ensure imports resolve when run as `python api.py`
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "mc2aco"))
 
-from synthetic_data_generator import generate_dataset
+from secondary_data_generator import generate_dataset
 from data_loader import load_and_split
 from discretizer import build_patient_sequences, SENTINEL_SEPSIS, SENTINEL_START
 from graph_builder import build_transition_graph
@@ -49,7 +49,7 @@ app.add_middleware(
 # ---------------------------------------------------------------------------
 # Globals & Cache
 # ---------------------------------------------------------------------------
-DATA_PATH = os.path.join(os.path.dirname(__file__), "mc2aco", "synthetic_sepsis_data.csv")
+DATA_PATH = os.path.join(os.path.dirname(__file__), "mc2aco", "secondary_sepsis_data.csv")
 RESULTS_PATH = os.path.join(os.path.dirname(__file__), "mc2aco", "final_results.txt")
 
 # State holders
@@ -66,7 +66,7 @@ def load_data_on_startup():
     
     # 1. Generate dataset if not exists
     if not os.path.exists(DATA_PATH):
-        print("[API] Generating synthetic dataset...")
+        print("[API] Generating secondary dataset...")
         generate_dataset(output_path=DATA_PATH)
         
     print("[API] Loading dataset...")

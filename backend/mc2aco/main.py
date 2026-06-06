@@ -26,7 +26,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 random.seed(42)
 np.random.seed(42)
 
-from synthetic_data_generator import generate_dataset
+from secondary_data_generator import generate_dataset
 from data_loader import load_and_split
 from discretizer import build_patient_sequences, SENTINEL_SEPSIS
 from graph_builder import build_transition_graph
@@ -141,11 +141,11 @@ def main():
     print("=" * 70 + "\n")
 
     # ------------------------------------------------------------------
-    # Step 1: Generate (or load) synthetic dataset
+    # Step 1: Generate (or load) secondary dataset
     # ------------------------------------------------------------------
-    data_path = os.path.join(os.path.dirname(__file__), "synthetic_sepsis_data.csv")
+    data_path = os.path.join(os.path.dirname(__file__), "secondary_sepsis_data.csv")
     if not os.path.exists(data_path):
-        print("Step 1: Generating synthetic dataset...")
+        print("Step 1: Generating secondary dataset...")
         generate_dataset(output_path=data_path)
     else:
         print(f"Step 1: Dataset already exists at {data_path}, skipping generation.")

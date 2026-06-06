@@ -1,7 +1,7 @@
 """
-synthetic_data_generator.py
+secondary_data_generator.py
 
-Generates a synthetic clinical dataset simulating sepsis progression
+Generates a secondary clinical dataset simulating sepsis progression
 across 1000 patients and 24 timepoints (every 2 hours over 48 hours).
 Embeds three ground-truth sepsis pathways for downstream validation.
 
@@ -349,9 +349,9 @@ def _generate_inflammatory_cascade_patient(patient_id: int) -> list:
 # Dataset entry point
 # ---------------------------------------------------------------------------
 
-def generate_dataset(output_path: str = "mc2aco/synthetic_sepsis_data.csv") -> pd.DataFrame:
+def generate_dataset(output_path: str = "mc2aco/secondary_sepsis_data.csv") -> pd.DataFrame:
     """
-    Generate the full synthetic sepsis dataset and save to CSV.
+    Generate the full secondary sepsis dataset and save to CSV.
 
     Cohort: 660 non-sepsis | 200 Warm Sepsis | 80 Cryptic Sepsis | 60 Inflammatory Cascade
     Total: 1000 patients × 24 timepoints = 24,000 rows.
@@ -378,7 +378,7 @@ def generate_dataset(output_path: str = "mc2aco/synthetic_sepsis_data.csv") -> p
     df = pd.DataFrame(all_rows)
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     df.to_csv(output_path, index=False)
-    print(f"[synthetic_data_generator] Saved {len(df)} rows | "
+    print(f"[secondary_data_generator] Saved {len(df)} rows | "
           f"660 non-sepsis / 200 WS / 80 CS / 60 IC → {output_path}")
     return df
 

@@ -1,0 +1,17 @@
+# Navigate to the backend directory
+cd backend
+
+# Install dependencies (if you haven't already)
+pip install fastapi uvicorn pydantic numpy pandas networkx tqdm
+
+# Run the API server
+python api.py
+
+# Navigate to the frontend directory
+cd frontend
+
+# Install package dependencies (if you haven't already)
+npm install
+
+# Start the Vite development server
+npm run dev

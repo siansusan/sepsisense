@@ -1,4 +1,4 @@
-# SepsisSense 🩺🔬
+# SepsisSense
 
 SepsisSense is a state-of-the-art clinical decision support and pathway discovery platform. It uses a custom **MC²-ACO (Monte Carlo & Ant Colony Optimization)** algorithm to ingest clinical cohort datasets, construct transition networks, and discover pathways representing patient deterioration into sepsis.
 
@@ -6,7 +6,7 @@ The application consists of a high-performance **FastAPI backend** and a visuall
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
 * **Data Ingestion Pipeline**: Load clinical batch CSV datasets (supporting MIMIC-III, PhysioNet 2019, and custom schemas) with automatic schema validation, missing values imputation, normalization, and windowing.
 * **Patient Registry & Timelines**: Browse patient clinical records, view detailed timelines of vitals and lab results (Heart Rate, Temperature, Blood Pressure, WBC, Lactate, SpO₂), and see matched progression pathways.
@@ -19,7 +19,7 @@ The application consists of a high-performance **FastAPI backend** and a visuall
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 * **Frontend**: React (v19), Vite, TailwindCSS, Lucide React (icons), Recharts (charts).
 * **Backend**: FastAPI, Uvicorn, Pandas, NumPy, NetworkX, Pydantic.
@@ -27,7 +27,7 @@ The application consists of a high-performance **FastAPI backend** and a visuall
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```tree
 sepsisense/
@@ -54,7 +54,7 @@ sepsisense/
 
 ---
 
-## 🏃 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -95,7 +95,7 @@ npm run dev
 
 ---
 
-## 🧪 Algorithmic Workflow (MC²-ACO)
+## Algorithmic Workflow (MC²-ACO)
 
 SepsisSense discovers sepsis pathways using a multi-step pipeline:
 1. **Discretization**: Patient records are binned into state nodes containing Temperature (T), Heart Rate (H), Blood Pressure (B), WBC Count (W), and Lactate (L). For example, state `T2_H1_B0_W1_L1` represents hyperpyrexia, mild tachycardia, normal blood pressure, mild leukocytosis, and hyperlactatemia.
@@ -103,9 +103,3 @@ SepsisSense discovers sepsis pathways using a multi-step pipeline:
 3. **Monte Carlo Bootstrapping**: Runs $B$ independent bootstraps on training cohorts to estimate baseline transition probabilities and pheromone variance.
 4. **Dynamic Evaporation**: Uses the variance of path walks to scale evaporation rates; stable transitions preserve pheromones while noisy paths evaporate quickly.
 5. **Ant Colony Optimization**: Virtual ants navigate the transition graph using pheromone levels ($\tau$) and heuristic data ($\eta$) to locate optimal deterioration pathways, validating outcomes against test datasets.
-
----
-
-## 🛡️ License
-
-This project is licensed under the MIT License.

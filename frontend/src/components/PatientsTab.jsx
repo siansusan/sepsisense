@@ -211,7 +211,7 @@ export default function PatientsTab() {
                   <tr key={p.patient_id} className="hover:bg-gray-900/10 transition-colors">
                     <td className="p-4 pl-6 font-mono font-medium text-white"># {String(p.patient_id).padStart(4, '0')}</td>
                     <td className="p-4">{p.ward}</td>
-                    <td className="p-4">{getCohBadge(p.cohort)}</td>
+                    <td className="p-4">{getCohortBadge(p.cohort)}</td>
                     <td className="p-4 font-mono">{p.hours_tracked} hrs</td>
                     <td className="p-4 font-mono">{p.vitals_summary.avg_hr} bpm</td>
                     <td className="p-4 font-mono">{p.vitals_summary.max_lac} mmol/L</td>

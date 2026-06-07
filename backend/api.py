@@ -453,7 +453,7 @@ def get_patients(
         pids_meta.append({
             "patient_id": int(pid),
             "ward": last_row["Ward"],
-            "cohort": last_row["Pathway_Type"],
+            "cohort": "None" if pd.isna(last_row["Pathway_Type"]) else str(last_row["Pathway_Type"]),
             "sepsis_flag": int(last_row["Sepsis_Flag"]),
             "hours_tracked": int(last_row["Hour"]),
             "vitals_summary": {
@@ -554,7 +554,7 @@ def get_patient_detail(patient_id: int):
     meta = {
         "patient_id": patient_id,
         "ward": p_df.iloc[-1]["Ward"],
-        "cohort": p_df.iloc[-1]["Pathway_Type"],
+        "cohort": "None" if pd.isna(p_df.iloc[-1]["Pathway_Type"]) else str(p_df.iloc[-1]["Pathway_Type"]),
         "sepsis_flag": int(p_df.iloc[-1]["Sepsis_Flag"]),
     }
     

@@ -67,6 +67,7 @@ export default function App() {
   const tabs = [
     { id: 'overview', name: 'Dashboard Overview', icon: Activity },
     { id: 'ingestion', name: 'Data Ingestion', icon: Database },
+    { id: 'patients', name: 'Patient Registry', icon: Users },
     { id: 'graph', name: 'Deterioration Highway', icon: Network },
     { id: 'pathways', name: 'Pathway Discoveries', icon: Award },
     { id: 'sandbox', name: 'Sandbox Simulation', icon: Sliders },
@@ -172,7 +173,7 @@ export default function App() {
                 </h1>
                 <p className="text-xs text-gray-400 mt-1 font-light">
                 {activeTab === 'overview' && 'Overview of patient cohorts, transitions graph stats and algorithm configuration.'}
-                {activeTab === 'ingestion' && 'Import EHR datasets to extract structured clinical features and run stability analysis.'}
+                {activeTab === 'ingestion' && 'Import clinical datasets to extract structured clinical features and run stability analysis.'}
                 {activeTab === 'patients' && 'Registry of ICU/ER patients. Search and analyze individual vital graphs and progression matching.'}
                 {activeTab === 'graph' && 'Interactive transition graph representing patient clinical progression lanes.'}
                 {activeTab === 'pathways' && 'Ranked list of discovered sepsis progression patterns and multi-run stability results.'}

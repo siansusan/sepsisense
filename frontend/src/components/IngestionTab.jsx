@@ -154,7 +154,7 @@ export default function IngestionTab() {
           </div>
           <div>
             <h2 className="text-sm font-bold text-white tracking-wide uppercase">SepsisSense | Data Ingestion & Patient Summary</h2>
-            <p className="text-xs text-gray-400 font-light mt-0.5">Import EHR datasets to extract structured clinical features and run stability analysis.</p>
+            <p className="text-xs text-gray-400 font-light mt-0.5">Import clinical datasets to extract structured clinical features and run stability analysis.</p>
           </div>
         </div>
         
@@ -196,7 +196,7 @@ export default function IngestionTab() {
           </div>
 
           <h3 className="text-base font-semibold text-white tracking-tight">
-            Drag & Drop EHR CSV Files Here
+            Drag & Drop CSV Files Here
           </h3>
           <p className="text-xs text-gray-500 font-light mt-1 max-w-sm leading-relaxed">
             Drag clinical batch files directly, or select a file using the local browser system.
@@ -245,7 +245,7 @@ export default function IngestionTab() {
             <div className="flex items-center gap-2.5">
               <FileSpreadsheet className="h-5 w-5 text-blue-400" />
               <div>
-                <h4 className="text-sm font-bold text-white">Processing: {file?.name || 'ehr_clinical_batch.csv'}</h4>
+                <h4 className="text-sm font-bold text-white">Processing: {file?.name || 'clinical_batch.csv'}</h4>
                 <p className="text-[10px] text-gray-500 font-light mt-0.5">Running clinical ingestion pipeline algorithms...</p>
               </div>
             </div>
@@ -445,7 +445,7 @@ export default function IngestionTab() {
                   {filteredPatients.length === 0 ? (
                     <tr>
                       <td colSpan={8} className="p-12 text-center text-gray-500 text-xs italic">
-                        No active EHR rows match your filter.
+                        No active patient rows match your filter.
                       </td>
                     </tr>
                   ) : (
